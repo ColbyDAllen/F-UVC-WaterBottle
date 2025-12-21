@@ -1,5 +1,17 @@
 # F-UVC-WaterBottle
 
+# UVC Bottle Hardware - ECAD
+
+## Sponsorship
+
+PCB fabrication for this prototype was kindly sponsored by [PCBWay](https://www.pcbway.com/), who covered the cost of the boards and DHL shipping via store credit. This project write-up and repository reflect my own design decisions and experience using their service.
+
+## [Summary/Explanation]
+
+
+# UVC Bottle Hardware - MCAD
+
+## [Summary/Explanation]
 
 # UVC Bottle Firmware – STM32L031K6
 
