@@ -1,0 +1,25 @@
+# STM32CubeIDE / Eclipse workspace junk
+.metadata/
+.settings/language.settings.xml
+
+# Build output
+Debug/
+Release/
+build/
+
+# Object / intermediate files
+*.o
+*.d
+*.su
+*.cyclo
+
+# Binaries & images
+*.elf
+*.hex
+*.bin
+*.map
+*.list
+*.srec
+
+# IDE launch configs (uncomment if you don't want to share them)
+# *.launch
