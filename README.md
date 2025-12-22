@@ -152,10 +152,17 @@ After flashing:
 - Verify that behavior matches the “Behavior” section above.
 
 ---
-
 ## Sponsorship (PCB fabrication)
 
-PCB fabrication for this prototype was kindly sponsored by **PCBWay**, who covered the cost of the boards and DHL shipping via store credit. This repository and write-up reflect **my own design decisions, testing, and documentation**.
+<p align="center">
+  <img
+    src="https://camo.githubusercontent.com/f9c8ca4b3ebe6b7096d61655e481bd8495ea12bbd70d12b42d5d4f17fa019f94/68747470733a2f2f667265696768742e636172676f2e736974652f772f3830302f692f613933313639303230356332373136323437363231336238626363313731353835616164396438346436356364633132316361343235653831333131343132312f3078302e706e67"
+    alt="PCBWay Sponsorship"
+    width="720"
+  />
+</p>
+
+PCB fabrication for this prototype was kindly sponsored by PCBWay, who covered the cost of the boards and DHL shipping via store credit. This repository and write-up reflect my own design decisions, testing, and documentation.
 
 Sponsorship support did not include editorial control or performance claims. Any results, measurements, or design conclusions in this project are based on our own prototyping and are provided for engineering transparency and learning.
 
