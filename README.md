@@ -1,7 +1,7 @@
 # F-UVC-WaterBottle (Prototype)
 
 **F-UVC-WaterBottle** is an open-source prototype for a **portable, bottle-scale water treatment concept** that stages:
-1) **filtration** (to reduce turbidity/particulates and improve UV effectiveness), and  
+1) **Filtration** (to reduce turbidity/particulates and improve UV effectiveness), and  
 2) **UV-C LED exposure** (to target microorganisms in the treated volume).
 
 This repository currently focuses on the **STM32 firmware bring-up** for a lid-integrated UV-C control system (timed cycles + safety interlock). Mechanical and electrical design artifacts will be added/expanded as the hardware matures.
