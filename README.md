@@ -1,111 +1,177 @@
-# F-UVC-WaterBottle
+# F-UVC-WaterBottle (Prototype)
 
-# UVC Bottle Hardware - ECAD
+**F-UVC-WaterBottle** is an open-source prototype for a **portable, bottle-scale water treatment concept** that stages:
+1) **filtration** (to reduce turbidity/particulates and improve UV effectiveness), and  
+2) **UV-C LED exposure** (to target microorganisms in the treated volume).
 
-## Sponsorship
+This repository currently focuses on the **STM32 firmware bring-up** for a lid-integrated UV-C control system (timed cycles + safety interlock). Mechanical and electrical design artifacts will be added/expanded as the hardware matures.
 
-PCB fabrication for this prototype was kindly sponsored by [PCBWay](https://www.pcbway.com/), who covered the cost of the boards and DHL shipping via store credit. This project write-up and repository reflect my own design decisions and experience using their service.
+> ⚠️ **Safety / Disclaimer (read first)**  
+> - UV-C is hazardous to eyes/skin. This is a prototype and is **not a certified disinfection device**.  
+> - Battery-powered systems can fail dangerously if miswired (shorts/overcurrent/overcharge).  
+> - This project is for engineering documentation and learning; **do not rely on it to produce safe drinking water**.
 
-## [Summary/Explanation]
+---
 
+## Repository layout
 
-# UVC Bottle Hardware - MCAD
+- **/Software/** — STM32L031 firmware project (STM32CubeIDE)  
+- **/Hardware/** — placeholders / in-progress hardware artifacts  
+  - **/Hardware/ECAD/** — (planned) schematics + PCB files, power path, MCU + interlocks  
+  - **/Hardware/MCAD/** — (planned) CAD for bottle geometry, lid enclosure, interlock placement
 
-## [Summary/Explanation]
+---
 
-# UVC Bottle Firmware – STM32L031K6
+## System overview (high level)
 
-Firmware for a UVC water bottle prototype built around an STM32L031K6 (NUCLEO-L031K6 or equivalent MCU on a custom PCB).  
-The code controls a UVC LED driver (via a high-side load switch), enforces lid-closed safety using a reed switch,  
-and exposes two timed dose cycles with a single push button and an RGB status LED.
+### Functional blocks
+- **Power path + charging:** Li-ion battery + power-path/charging management (USB / DC / solar input).
+- **3.3 V logic rail:** regulated supply for STM32L031K6.
+- **UV-C branch:** UV-C LED driver powered through a **high-side load switch** controlled by the MCU.
+- **Safety interlock:** **reed switch + magnet** lid-closed detection (UV-C is disabled if lid-open is detected).
+- **User interface:** a single button selects a timed cycle; an RGB LED indicates state.
 
-## Behavior
+### Why a gated UV-C branch?
+The UV-C driver is treated as a **separately power-gated subsystem**. The MCU controls a load switch so that:
+- UV-C power is **OFF by default** at boot,
+- UV-C power can be **dropped immediately** on fault / lid-open,
+- inrush can be shaped (soft-start) to avoid brownouts.
 
-- **Single tap** on the button  
-  → Starts a **short UVC cycle (1 minute)**.  
-  → RGB LED shows a **warm amber** color (R ≈ 75%, G ≈ 20%, B = 0).
+---
 
-- **Double tap** (two taps within 400 ms)  
-  → Starts a **long UVC cycle (3 minutes)**.  
-  → RGB LED shows **blue** (B ≈ 75%, R = 0, G = 0).
+## Firmware: STM32L031K6
 
-- **Tap during an active cycle**  
-  → Cancels the current cycle immediately.  
-  → Load switch is turned OFF, RGB LED returns to **idle (off)**.
+Firmware for a UV-C water bottle prototype built around an **STM32L031K6** (NUCLEO-L031K6 or equivalent MCU on a custom PCB).  
+The code:
+- controls a UV-C driver branch via a **high-side load switch**,
+- enforces lid-closed safety via a **reed switch**,
+- implements **two timed UV-C cycles** using a **single push button** and an **RGB status LED**.
 
-- **Reed switch safety (lid detection)**  
-  - Reed switch is wired so that **LOW = lid closed / magnet present (safe)**.  
-  - If the reed switch ever indicates **lid open** while a cycle is running:
-    - UVC load is turned **OFF**.
-    - Any pending tap state is cleared.
-    - Cycle mode resets to **none**.
-    - RGB LED returns to **idle (off)**.
+### Behavior (user-facing)
 
-- **Auto-stop**
-  - Each cycle tracks its own **end time** (1 or 3 minutes).
-  - When the cycle’s timer expires:
-    - UVC load is turned **OFF**.
-    - Cycle mode resets to **none**.
-    - Pending tap state is cleared.
-    - RGB LED goes back to **idle (off)**.
+**Single tap**
+- Starts a **short UV-C cycle (1 minute)**  
+- RGB LED shows **amber** (warm: R + G)
 
-- **LED states (summary)**
-  - **Idle / no cycle**: RGB LED **off**  
-  - **Short cycle**: **amber** (mixed R+G)  
-  - **Long cycle**: **blue**  
-  - **Error state**: reserved for future use (currently just mapped to **red** in code, but not yet invoked)
+**Double tap** (two taps within ~400 ms)
+- Starts a **long UV-C cycle (3 minutes)**  
+- RGB LED shows **blue**
 
-## Hardware Assumptions
+**Tap during an active cycle**
+- Cancels the current cycle immediately  
+- UV-C branch is turned OFF and LED returns to idle
 
-This firmware assumes (matching our prototype):
+### Reed switch safety (lid detection)
 
-- **MCU**: STM32L031K6  
-  - Either on a **NUCLEO-L031K6** dev board wired into the system,  
-    or soldered as an MCU footprint on a custom PCB with equivalent pinout.
+The reed switch is wired/configured so that:
 
-- **Power Path**
-  - **Battery / input management**: TI **BQ24074** (USB / DC / solar input + Li-ion charging and power-path).
-  - **3.3 V rail**: **MCP1700** LDO providing a regulated 3.3 V rail for the MCU.
-  - **UVC LED driver branch**:
-    - High-side load switch: **TPS22918**.
-    - The UVC LED driver board (e.g., IO Rodeo UVC board) is powered from the TPS22918 output.
-    - The firmware drives the **Control_Pin** GPIO to enable/disable this branch.
+- **LOW = lid closed / magnet present (safe to run)**
+- **HIGH = lid open (unsafe)**
 
-- **Inputs**
-  - **Reed switch** on `REED_SW_Pin` (configured as input with pull-up):  
-    - **LOW** → lid closed, safe to run UVC.  
-    - **HIGH** → lid open, unsafe, force UVC off.
-  - **User button (B2)** on `B2_Pin` (external interrupt, falling edge):  
-    - Generates the single / double-tap events that control the cycles.
+If the firmware ever detects **lid open while a cycle is active**, it will:
+- turn the UV-C branch **OFF immediately**
+- clear pending tap state
+- reset the cycle mode to none
+- return LED to **idle (off)**
 
-- **Outputs**
-  - **RGB status LED**, common-anode, on STM32 **TIM2 PWM** channels:  
-    - `PA3` → TIM2 CH4 → **RED**  
-    - `PA1` → TIM2 CH2 → **GREEN**  
-    - `PA0` → TIM2 CH1 → **BLUE**  
-  - **UVC load switch control** on `Control_Pin` (GPIO output):  
-    - `LOW` → load **OFF**  
-    - `HIGH` → load **ON** (UVC driver powered)
+### Auto-stop
 
-> Note: SPI1 and some GPIO pins (RST, CS, DC) are still configured in the CubeMX project,
-> but the associated OLED code has been removed. They are currently unused / reserved for
-> future debug or display features and do not affect UVC functionality.
+Each cycle tracks its own end time. When the timer expires:
+- UV-C branch is turned OFF
+- cycle mode resets to none
+- pending tap state is cleared
+- LED returns to idle
 
-## Build & Flash (STM32CubeIDE)
+### LED states (summary)
+- **Idle:** RGB LED off  
+- **Short cycle:** amber (R + G)  
+- **Long cycle:** blue  
+- **Error:** reserved for future use (code may map “error” to red, but it is not yet fully invoked)
 
-- Toolchain: **STM32CubeIDE 1.19.x** (or compatible)
-- MCU target: **STM32L031K6Tx**
+---
 
-To rebuild and flash:
+## Hardware assumptions (prototype target)
 
-1. **Clone** this repository.
-2. In **STM32CubeIDE**, go to  
-   `File → Import… → Existing Projects into Workspace…`  
-   and select the project folder.
-3. Build the `Debug` or `Release` configuration.
-4. Connect an ST-LINK (onboard NUCLEO ST-LINK or external dongle).
-5. Click the **Run / Debug** button in CubeIDE to flash the firmware.
+This firmware assumes a hardware stack similar to:
 
-Once flashed, power the board from the regulated **3.3 V rail** (MCP1700 output)  
-or via the NUCLEO board’s standard power path, wire up the reed switch, button,  
-RGB LED, and TPS22918 load switch, and the behavior above should match.
+### MCU
+- **STM32L031K6**
+  - Either on a **NUCLEO-L031K6** dev board during bring-up, or
+  - Soldered on a custom PCB with equivalent pinout.
+
+### Power path (concept)
+- **Charging + power-path:** TI **BQ24074** class device / module (USB/DC/solar input + Li-ion charging + load sharing)
+- **3.3 V regulation:** **MCP1700** LDO (or equivalent)
+- **UV-C branch gating:** **TPS22918** high-side load switch (or equivalent)
+- **UV-C LED driver board:** a constant-current UV-C driver module powered from the gated branch (varies by prototype revision)
+
+> Note: pin mapping and exact rails depend on the specific revision. The firmware documents the *logic expectations* (reed switch polarity, enable polarity, etc.).
+
+---
+
+## I/O and pin mapping (firmware expectations)
+
+### Inputs
+- **Reed switch** on `REED_SW_Pin` (input with pull-up)
+  - **LOW → lid closed (safe)**
+  - **HIGH → lid open (force UV-C off)**
+- **User button** on `B2_Pin` (external interrupt, falling edge)
+  - firmware expects an **active-low press** event for tap timing
+
+### Outputs
+- **UV-C load switch control** on `Control_Pin` (GPIO output)
+  - **LOW → UV-C branch OFF**
+  - **HIGH → UV-C branch ON**
+- **RGB status LED** driven by TIM2 PWM channels (common-anode assumed)
+  - `PA3 → TIM2 CH4 → RED`
+  - `PA1 → TIM2 CH2 → GREEN`
+  - `PA0 → TIM2 CH1 → BLUE`
+
+### Reserved / unused
+Some pins may remain configured in CubeMX (e.g., SPI1 + OLED-related GPIO) even if the display code is not currently included. These are reserved for future debug/UI and do not affect UV-C control behavior.
+
+---
+
+## Build & flash (STM32CubeIDE)
+
+**Toolchain:** STM32CubeIDE (tested with 1.19.x; nearby versions should work)  
+**Target MCU:** STM32L031K6Tx
+
+### Steps
+1. Clone the repository.
+2. Open **STM32CubeIDE** → **File → Import… → Existing Projects into Workspace…**
+3. Select the firmware project under `/Software/`
+4. Build **Debug** or **Release**
+5. Connect **ST-LINK**
+   - NUCLEO onboard ST-LINK or external dongle
+6. Click **Run** or **Debug** to flash
+
+After flashing:
+- Power the MCU from a **regulated 3.3 V rail** (or standard NUCLEO power path during early bring-up),
+- Connect the reed switch, button, RGB LED, and load-switch control line,
+- Verify that behavior matches the “Behavior” section above.
+
+---
+
+## Sponsorship (PCB fabrication)
+
+PCB fabrication for this prototype was kindly sponsored by **PCBWay**, who covered the cost of the boards and DHL shipping via store credit. This repository and write-up reflect **my own design decisions, testing, and documentation**.
+
+Sponsorship support did not include editorial control or performance claims. Any results, measurements, or design conclusions in this project are based on our own prototyping and are provided for engineering transparency and learning.
+
+---
+
+## Roadmap / next steps (WIP)
+
+Planned expansions to this repo:
+- Add **ECAD**: schematics + PCB files for the power path, MCU, interlocks, and UV-C gating
+- Add **MCAD**: lid enclosure, interlock placement, sealing strategy, serviceability notes
+- Log actual **measured rail stability**, inrush behavior, and thermal observations
+- Add explicit **error handling** states (fault latch, blink codes, charging status UI)
+- Optional: add **UV-C emission verification** sensing (future revision)
+
+---
+
+## License
+
+MIT License — see `LICENSE`.
