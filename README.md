@@ -81,9 +81,9 @@ For the full background, math, and validation plan, see the accompanying [projec
 
 ---
 
-## UVC design (two key equations)
+## UVC design (Two key equations)
 
-The UVC subsystem is designed around a **virus-focused, 4-log₁₀ target** and the **EPA’s 186 mJ/cm²** required dose for conservative viral inactivation credit (e.g., adenovirus). The math is described in detail in the blog, but the README keeps just the two design anchors.
+The UVC subsystem is designed around a **virus-focused, 4-log₁₀ target** and the **EPA’s 186 mJ/cm²** required dose for conservative viral inactivation credit (e.g. adenovirus). The math is described in detail in the writeup, but the README keeps just the two design anchors.
 
 ### Design Equation 1 – Required log-reduction target
 
