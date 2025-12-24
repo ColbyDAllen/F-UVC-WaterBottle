@@ -98,7 +98,7 @@ $$
 We infer RED via an organism- and wavelength-specific dose-response slope $k(\lambda)$ (units: $\mathrm{m^2/J}$) from collimated-beam data:
 
 $$
-\mathrm{LRV} = k(\lambda)\,\mathrm{RED}
+\mathrm{LRV} = k(\lambda)\\mathrm{RED}
 \quad\Rightarrow\quad
 \mathrm{RED} = \frac{\mathrm{LRV}}{k(\lambda)}
 $$
