@@ -1,6 +1,6 @@
 # F-UVC-WaterBottle (Prototype)
 
-**F-UVC-WaterBottle** is an open-source prototype for a **portable, bottle-scale water treatment concept** that stages:
+**F-UVC-WaterBottle** is a prototype for a **portable, bottle-scale water treatment concept** that stages:
 
 1. **Filtration** – to handle turbidity and many dissolved contaminants, then  
 2. **UV-C LED exposure** – to target microorganisms in the treated volume.
