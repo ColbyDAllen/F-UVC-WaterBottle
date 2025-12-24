@@ -87,77 +87,83 @@ The UVC subsystem is designed around a **virus-focused, 4-log₁₀ target** and
 
 ### Design Equation 1 – Required log-reduction target
 
-We design against a **required reduction-equivalent dose** (RED₍Req₎) that already includes a **Validation Factor** (VF ≥ 1) to derate for uncertainties (optics, UVT, mixing, LED drift, etc.):
+We design against a required reduction-equivalent dose $\mathrm{RED}_{\mathrm{Req}}$ that already includes a Validation Factor $\mathrm{VF} \ge 1$ to derate for uncertainties (optics, UVT, mixing, LED drift, etc.).
 
-- EPA required dose:  
-  \( D_{\mathrm{Req}} = 186\,\mathrm{mJ/cm^2} \)
+**EPA required dose**
 
-- We infer RED via an organism- and wavelength-specific dose-response slope \( k(\lambda) \) (units: m²/J) from collimated-beam data:
+$$
+D_{\mathrm{Req}} = 186\,\mathrm{mJ/cm^2}
+$$
 
-\[
-\mathrm{LRV} = k(\lambda)\cdot \mathrm{RED}
+We infer RED via an organism- and wavelength-specific dose-response slope $k(\lambda)$ (units: $\mathrm{m^2/J}$) from collimated-beam data:
+
+$$
+\mathrm{LRV} = k(\lambda)\,\mathrm{RED}
 \quad\Rightarrow\quad
 \mathrm{RED} = \frac{\mathrm{LRV}}{k(\lambda)}
-\]
+$$
 
-To make sure our **validated dose** still meets the requirement after derating:
+To make sure our validated dose still meets the requirement after derating:
 
-\[
-\mathrm{RED}_{\mathrm{Req}} = D_{\mathrm{Req}}\cdot \mathrm{VF}
-\]
+$$
+\mathrm{RED}_{\mathrm{Req}} = D_{\mathrm{Req}} \cdot \mathrm{VF}
+$$
 
-So the **minimum design log-reduction** the prototype must achieve is:
+So the minimum design log-reduction the prototype must achieve is:
 
-\[
+$$
 \boxed{\mathrm{LRV}_{\mathrm{Design}} = k(\lambda)\,D_{\mathrm{Req}}\,\mathrm{VF}}
-\]
+$$
 
 This connects **regulation → biology → optics**: once we choose the challenge organism, wavelength, and VF, we know how much log reduction we must demonstrate in testing.
+
+---
 
 ### Design Equation 2 – Exposure time vs power & geometry
 
 Fluence (dose) is the time integral of fluence rate (irradiance). Under a constant or time-averaged effective irradiance:
 
-\[
+$$
 \mathrm{RED}_{\mathrm{Req}} \approx
-\left(\frac{P_{\mathrm{Opt}}}{A_{\mathrm{Eff}}}\right)t_{D_{\mathrm{Req}}}
-\]
+\left(\frac{P_{\mathrm{Opt}}}{A_{\mathrm{Eff}}}\right)
+t_{D_{\mathrm{Req}}}
+$$
 
 Where:
 
-- \( P_{\mathrm{Opt}} \) – **delivered UVC optical power** into the water (W)  
-- \( A_{\mathrm{Eff}} \) – **effective area penalty**, bundling:
-  - dark zones, shadowing, geometry  
-  - internal reflectivity  
-  - UVT/path length losses  
+- $P_{\mathrm{Opt}}$ – delivered UVC optical power into the water (W)
+- $A_{\mathrm{Eff}}$ – effective area penalty, bundling:
+  - dark zones, shadowing, geometry
+  - internal reflectivity
+  - UVT/path length losses
   - mixing/flow state and window losses
 
-Solving for **required exposure time**:
+Solving for the required exposure time:
 
-\[
+$$
 \boxed{
 t_{D_{\mathrm{Req}}} =
-D_{\mathrm{Req}}\cdot \mathrm{VF}\cdot A_{\mathrm{Eff}}\cdot \frac{1}{P_{\mathrm{Opt}}}
+D_{\mathrm{Req}} \cdot \mathrm{VF} \cdot A_{\mathrm{Eff}} \cdot \frac{1}{P_{\mathrm{Opt}}}
 }
-\]
+$$
 
 Equivalently, in biology-centric terms:
 
-\[
+$$
 t_{D_{\mathrm{Req}}} =
 \left(\frac{\mathrm{LRV}_{\mathrm{Design}}}{k(\lambda)}\right)
 A_{\mathrm{Eff}}
 \left(\frac{1}{P_{\mathrm{Opt}}}\right)
-\]
+$$
 
 Intuitively:
 
-- **UX knob** → \( t_{D_{\mathrm{Req}}} \): how long the user waits (cycle lengths).  
-- **Biology + regulation** → \( \frac{\mathrm{LRV}_{\mathrm{Design}}}{k(\lambda)} \) and VF.  
-- **Geometry & optics** → \( A_{\mathrm{Eff}} \) (how hard it is to dose the darkest point).  
-- **Electron budget** → \( P_{\mathrm{Opt}} \) (LED choice, drive current, thermal path, driver efficiency).
+- **UX knob** → $t_{D_{\mathrm{Req}}}$: how long the user waits (cycle lengths).
+- **Biology + regulation** → $\dfrac{\mathrm{LRV}_{\mathrm{Design}}}{k(\lambda)}$ and VF.
+- **Geometry & optics** → $A_{\mathrm{Eff}}$ (how hard it is to dose the darkest point).
+- **Electron budget** → $P_{\mathrm{Opt}}$ (LED choice, drive current, thermal path, driver efficiency).
 
-The firmware’s **“1 min” and “3 min”** modes are early UX stand-ins; the real design work is bringing those modes into alignment with the above constraints once the optical and biological tests happen.
+The firmware’s “1 min” and “3 min” modes are early UX stand-ins; the real design work is bringing those modes into alignment with the above constraints once the optical and biological tests happen.
 
 ---
 
