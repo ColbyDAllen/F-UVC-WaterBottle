@@ -54,17 +54,17 @@ For the full background, math, and validation plan, see the accompanying [projec
 
 **Treatment path**
 
-1. **Outer chamber (dirty water)**  
-   - Filled from the source (tap, stream, questionable faucet).  
+1. **Outer chamber (Dirty water)**  
+   - Filled from the source (Tap, stream, questionable faucet).  
    - Houses a **threaded, refillable filter cartridge**.
 
 2. **Filter cartridge (FairCap-inspired)**  
    - Printable shell intended to be packed with **cotton + activated carbon + media**.  
-   - Goal: reduce particulates, chlorine, some metals/organics, and improve UV transmittance (UVT).
+   - Goal: Reduce particulates, some metals/organics, and improve UV transmittance (UVT).
 
-3. **Inner chamber (filtered water)**  
+3. **Inner chamber (Filtered water)**  
    - Receives water through the filter cartridge.  
-   - Interior is designed to be **reflective** and geometrically favorable for UVC dose delivery.
+   - Interior will be designed to be **reflective** and geometrically favorable for UVC dose delivery.
 
 4. **Lid UVC subsystem**  
    - Contains **UVC LED + driver**, **charger/power-path board**, **MCU**, **load switch**, **reed switch**, and **status LED(s)**.  
@@ -74,7 +74,7 @@ For the full background, math, and validation plan, see the accompanying [projec
 
 - **Li-ion battery** + **BQ24074-class charger** for USB/DC/solar input and load sharing.  
 - **3.3 V rail** for logic (STM32L031K6).  
-- **High-side load switch** for the UVC branch (gated by MCU and interlocks).  
+- **High-side load switch** for the UVC branch (Gated by MCU and interlocks).  
 - **Single push button** for cycle control.  
 - **RGB LED** for state indication.  
 - **Reed switch + magnet** for lid-closed detection (firmware + hardware gating).
