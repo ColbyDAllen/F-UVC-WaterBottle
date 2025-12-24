@@ -83,7 +83,7 @@ For the full background, math, and validation plan, see the accompanying [projec
 
 ## Hardware stack
 
-### MCAD (bottle, lid, and filter)
+### MCAD (Bottle chambers, lid, and filter)
 
 The MCAD branch (SolidWorks) currently includes:
 
