@@ -176,19 +176,6 @@ After flashing:
   />
 </p>
 
-PCB fabrication for this prototype was kindly sponsored by
-[PCBWay](https://www.pcbway.com/), who covered the cost of the
-4-layer boards and DHL shipping via store credit.
-
-From a bring-up perspective the experience was exactly what I was hoping for:
-- The **4-layer FR-4 S1000H TG150 stack-up** (78 × 78 mm, 1.6 mm, ENIG, 1 oz Cu inner/outer) matched the KiCad design with no surprises.  
-- **Drill hits, solder mask, and silkscreen registration** were all on-point; pads were fully exposed and silkscreen stayed off fine-pitch pads.  
-- ENIG pads **wetted cleanly** during hot-air/QFN reflow, and the USB-C, BQ24074, and header footprints all fit mechanically without any bodge-wires or footprint hacks.
-
-This repository and write-up reflect my own design decisions, testing, and documentation.  
-Sponsorship support did not include editorial control or performance claims; any results here are based on my own prototyping and are shared for transparency and learning.
-
-## Sponsorship (PCB fabrication)
 
 ![F-UVC cap PCB – top side](https://i.imgur.com/lHTRejb.jpeg)
 
