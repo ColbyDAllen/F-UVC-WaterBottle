@@ -5,7 +5,7 @@
 1. **Filtration** to handle turbidity and many dissolved contaminants, then  
 2. **UVC LED exposure** to target microorganisms in the treated volume.
 
-The current repo centers on **STM32 firmware** and a **lid PCB** that controls a gated UV-C branch, backed by early **MCAD** for a two-chamber bottle (Outer dirty shell + inner filtered/UVC chamber) and a refillable filter cartridge.
+The current repo centers on **STM32 firmware** and a **lid PCB** that controls a gated UVC branch, backed by early **MCAD** for a two-chamber bottle (Outer dirty shell + inner filtered/UVC chamber) and a refillable filter cartridge.
 
 > ⚠️ **Safety / Disclaimer**
 >
