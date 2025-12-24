@@ -167,26 +167,26 @@ The firmware’s **“1 min” and “3 min”** modes are early UX stand-ins; t
 
 The MCAD branch (SolidWorks) currently includes:
 
-- **Outer chamber** – holds untreated water.  
-- **Inner chamber** – receives filtered water and forms the UVC treatment volume.  
-- **Filter cartridge** – a threaded, refillable block inspired by FairCap, intended to be packed with media (cotton + activated carbon + salt, etc.).  
-- **Lid** – houses the electronics, UVC lens/window, RGB light pipes, and reed-switch magnet pocket.
+- **Outer chamber**: Holds untreated water.  
+- **Inner chamber**: Receives filtered water and forms the UVC treatment volume.  
+- **Filter cartridge**: A threaded, refillable block inspired by FairCap, intended to be packed with media (cotton + activated carbon + salt, etc.).  
+- **Lid**: Houses the electronics, UVC lens/window, RGB light pipes, and reed-switch magnet pocket.
 
 **Status / caveats**
 
 - Current prints are **PETG** and intended as **“looks-like” prototypes only**.  
-- Magnet pocket and wall thickness are still being refined (early prints exposed the magnet cavity into the threads).  
+- Magnet pocket and wall thickness are still being refined (Early prints exposed the magnet cavity into the threads).  
 - Future revisions will move away from epoxy and toward **M2 fasteners and gaskets** for serviceability and sealing.  
-- Long-term, a **metal inner chamber** (stainless) would be preferable for UVC compatibility and cleanliness.
+- Long-term, a **metal inner chamber** (Steel) would be preferable for UVC compatibility and cleanliness.
 
-### ECAD (lid PCB, rev A)
+### ECAD (Lid PCB, rev A)
 
 The ECAD branch uses **KiCad** and currently implements:
 
 - **Power path & charging**
   - **BQ24074-class charger** (Adafruit reference design)  
-  - Input: **USB-C, DC, or solar (5–10 V)**  
-  - Load sharing (run from input while charging battery)  
+  - Input: **USB-C or solar (5-10 V)**  
+  - Load sharing (Run from input while charging battery)  
   - Input dynamic power management to avoid solar brown-out  
   - Status: **PGOOD**, **CHG** exposed for future MCU use
 
@@ -195,18 +195,18 @@ The ECAD branch uses **KiCad** and currently implements:
   - Local decoupling and layout tuned for stability
 
 - **UVC branch gating**
-  - **TPS22918** high-side load switch (or equivalent)  
+  - **TPS22918** high-side load switch
   - VIN from SYS rail, VOUT to UVC driver module  
   - MCU-controlled **EN**, default-OFF on reset/boot  
-  - Optional CT pin for soft-start (in-rush shaping)
+  - Optional CT pin for soft-start (In-rush shaping)
 
 - **MCU & I/O**
-  - **STM32L031K6** – initially hosted on a **NUCLEO-L031K6** dev board, with the custom PCB providing power and I/O connectivity.  
-  - **Reed switch** input for lid-closed detection.  
-  - **Single user button** input.  
-  - **RGB LED** (tri-color, PWM-driven) for state indication.
+  - **STM32L031K6**: Initially hosted on a **NUCLEO-L031K6** dev board, with the custom PCB providing power and I/O connectivity.  
+  - **Reed switch**: Input for lid-closed detection.  
+  - **Single user button**: User input.  
+  - **RGB LED** (tri-color, PWM-driven): For state indication.
 
-A separate constant-current UVC LED board (e.g., **IO Rodeo 275 nm module**) currently handles LED drive; in future spins its topology could be folded into a dedicated UVC daughterboard or an integrated lid PCB.
+A separate constant-current UVC LED board (i.e. **IO Rodeo 275nm module**) currently handles LED drive. In future revisions its topology could be folded into a dedicated UVC daughterboard or an integrated lid PCB.
 
 ---
 
@@ -259,13 +259,13 @@ Firmware lives under **`/Software/`** and targets **STM32L031K6Tx**, typically o
   - `PA1` → TIM2 CH2 → GREEN  
   - `PA0` → TIM2 CH1 → BLUE
 
-Some SPI/OLED-related pins may remain configured from CubeMX templates; they’re reserved for future debug UI and don’t affect UVC logic.
+Some SPI/OLED-related pins may remain configured from CubeMX templates. They’re reserved for future debug UI and don’t affect UVC logic.
 
 ---
 
 ## Build & flash (STM32CubeIDE)
 
-- **Toolchain:** STM32CubeIDE (tested with 1.19.x; nearby versions should work)  
+- **Toolchain:** STM32CubeIDE 
 - **Target MCU:** STM32L031K6Tx
 
 1. Clone the repository.
@@ -279,7 +279,7 @@ After flashing, for bench testing:
 
 - Power the board from a **regulated 3.3 V rail** (or the NUCLEO’s default power path).  
 - Connect the reed switch, button, RGB LED, and load-switch control line as per the I/O mapping.  
-- Confirm that behavior matches the “High-level behavior” section above using a **safe stand-in load** (e.g., an OLED or resistor) instead of a UVC LED.
+- Confirm that behavior matches the “High-level behavior” section above using a **safe stand-in load** (e.g. an OLED display or resistor) instead of a UVC LED.
 
 ---
 
@@ -336,11 +336,11 @@ Planned expansions to this repo:
   - Tighten power-integrity checks (inrush, brownout behavior, EMC, thermal).
 
 - **MCAD**
-  - Add outer bottle, finalized filter cartridge, and realistic sealing strategy (O-rings, grooves, fasteners).  
-  - Explore food-safe materials (metal inner chamber, UVC-stable windows, and gaskets).
+  - Add outer bottle, finalized filter cartridge, and realistic sealing strategy (O-rings, glands/grooves, fasteners).  
+  - Explore food-safe materials (Metal inner chamber, UVC-stable windows, and gaskets).
 
 - **Firmware**
-  - Add explicit **fault/error states** (blink codes, fault latch, charging/solar status UI).  
+  - Add explicit **fault/error states** (Blink codes, fault latch, charging/solar status UI).  
   - Integrate charger status (PGOOD / CHG) into UX.
 
 - **Testing & validation**
