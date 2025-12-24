@@ -43,7 +43,7 @@ For the full background, math, and validation plan, see the accompanying [projec
 - **/Software/** – STM32L031 firmware project (STM32CubeIDE)  
 - **/Hardware/** – hardware artifacts  
   - **/Hardware/ECAD/** – KiCad PCB files for the lid/control board (power path, MCU, interlocks, UVC gating)  
-  - **/Hardware/MCAD/** – SolidWorks models for bottle's inner chamber, outer chamber, lid, and filter cartridge  
+  - **/Hardware/MCAD/** – SolidWorks models & STEP files for the bottle's inner chamber, outer chamber, lid, and filter cartridge  
 - **/Docs/** *(planned)* – validation notes, test logs, and design references
 
 ---
