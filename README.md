@@ -34,7 +34,7 @@ Rather than choosing **filtration *or* UVC**, this prototype explores a **staged
 The long-term research question is:  
 Can a bottle-scale system combine **filter-first** architecture with **geometry-aware UVC dosing** and still be **usable** (Cycle times, charging, cleaning, and cost)?
 
-For the full background, math, and validation plan, see the accompanying [project write-up]([https://www.pcbway.com/](https://colbydanielallen.com/portfolio/filtration-uvc-water-bottle/).
+For the full background, math, and validation plan, see the accompanying [project write-up](https://colbydanielallen.com/portfolio/filtration-uvc-water-bottle/).
 
 ---
 
