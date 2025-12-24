@@ -20,7 +20,7 @@ The current repo centers on **STM32 firmware** and a **lid PCB** that controls a
 
 ## What this project is trying to explore
 
-**User story (target scenario)**
+**User story (Target scenario)**
 
 > “As someone who travels, camps, or works where tap water isn’t always viable,  
 > I need a compact bottle that can handle **turbidity, taste, and biological contamination**,  
