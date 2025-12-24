@@ -162,11 +162,6 @@ After flashing:
   />
 </p>
 
-PCB fabrication for this prototype was kindly sponsored by [PCBWay](https://www.pcbway.com/), who covered the cost of the boards and DHL shipping via store credit. This repository and write-up reflect my own design decisions, testing, and documentation.
-
-Sponsorship support did not include editorial control or performance claims. Any results, measurements, or design conclusions in this project are based on our own prototyping and are provided for engineering transparency and learning.
-
-## Sponsorship (PCB fabrication)
 
 <p align="center">
   <img
