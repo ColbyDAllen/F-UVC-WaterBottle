@@ -32,6 +32,7 @@ Rather than choosing **filtration *or* UVC**, this prototype explores a **staged
 - **Cap-integrated UVC** (e.g. Larq PureVis 2) for **in-bottle optical disinfection**.
 
 The long-term research question is:  
+
 Can a bottle-scale system combine **filter-first** architecture with **geometry-aware UVC dosing** and still be **usable** (Cycle times, charging, cleaning, and cost)?
 
 For the full background, math, and validation plan, see the accompanying [project write-up](https://colbydanielallen.com/portfolio/filtration-uvc-water-bottle/).
