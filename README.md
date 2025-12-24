@@ -162,21 +162,6 @@ After flashing:
   />
 </p>
 
-
-<p align="center">
-  <img
-    src="Hardware/ECAD/photos/pcb_top.jpg"
-    alt="F-UVC cap PCB – top side"
-    width="400"
-  />
-  <img
-    src="Hardware/ECAD/photos/pcb_populated.jpg"
-    alt="F-UVC cap PCB – partially populated"
-    width="400"
-  />
-</p>
-
-
 ![F-UVC cap PCB – top side](https://i.imgur.com/lHTRejb.jpeg)
 
 PCB fabrication for this prototype was kindly sponsored by
