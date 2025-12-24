@@ -26,15 +26,15 @@ The current repo centers on **STM32 firmware** and a **lid PCB** that controls a
 > I need a compact bottle that can handle **turbidity, taste, and biological contamination**,  
 > so I can safely drink without hauling single-use filters, chemicals, or a stove.”
 
-Rather than choosing **filtration *or* UV-C**, this prototype explores a **staged approach** inspired by:
+Rather than choosing **filtration *or* UVC**, this prototype explores a **staged approach** inspired by:
 
-- **Press-to-filter systems** (e.g., Grayl GeoPress) for **multi-barrier filtration**, and  
-- **Cap-integrated UVC** (e.g., Larq PureVis 2) for **in-bottle optical disinfection**.
+- **Press-to-filter systems** (e.g. Grayl GeoPress) for **multi-barrier filtration**, and  
+- **Cap-integrated UVC** (e.g. Larq PureVis 2) for **in-bottle optical disinfection**.
 
 The long-term research question is:  
-Can a bottle-scale system combine **filter-first** architecture with **geometry-aware UVC dosing** and still be **usable** (cycle times, charging, cleaning, and cost)?
+Can a bottle-scale system combine **filter-first** architecture with **geometry-aware UVC dosing** and still be **usable** (Cycle times, charging, cleaning, and cost)?
 
-For the full background, math, and validation plan, see the accompanying project write-up (link TBD).
+For the full background, math, and validation plan, see the accompanying [project write-up]([https://www.pcbway.com/](https://colbydanielallen.com/portfolio/filtration-uvc-water-bottle/).
 
 ---
 
