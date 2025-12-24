@@ -10,7 +10,7 @@ The current repo centers on **STM32 firmware** and a **lid PCB** that controls a
 > ⚠️ **Safety / Disclaimer**
 >
 > - This is **not** a certified disinfection device and **not** a minimum viable / usable product.  
-> - **UV-C is hazardous** to eyes and skin. Misuse can cause injury.  
+> - **UVC is hazardous** to eyes and skin. Misuse can cause injury.  
 > - Current printed parts are **not food-safe** and **not reliably watertight**.  
 > - Battery-powered systems can fail dangerously if miswired (overcurrent, shorts, thermal runaway).  
 > - This project exists for **engineering documentation and learning only**.  
