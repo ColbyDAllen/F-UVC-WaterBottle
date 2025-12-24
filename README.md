@@ -112,7 +112,7 @@ $$
 So the minimum design log-reduction the prototype must achieve is:
 
 $$
-\boxed{\mathrm{LRV}_{\mathrm{Design}} = k(\lambda)\,D_{\mathrm{Req}}\,\mathrm{VF}}
+\boxed{\mathrm{LRV}_{\mathrm{Design}} = k(\lambda)\D_{\mathrm{Req}}\\mathrm{VF}}
 $$
 
 This connects **regulation → biology → optics**: once we choose the challenge organism, wavelength, and VF, we know how much log reduction we must demonstrate in testing.
